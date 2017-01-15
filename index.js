@@ -27,10 +27,8 @@ Roomba.prototype.sendRequest = function(method, value, callback) {
 }
 
 Roomba.prototype.getStatus = function(callback) {
-  var accessory = this;
   this.sendRequest("getStatus", null, function(err, httpResponse, body) {
     if (err || httpResponse.statusCode != 200) {
-      accessory.log("Could not get status from Roomba: %s", err);
       return callback(err, null);
     }
     var json = JSON.parse(body);
@@ -41,7 +39,7 @@ Roomba.prototype.getStatus = function(callback) {
 }
 
 Roomba.prototype.pollPhase = function(desiredPhase, callback) {
-  var accessory = this;
+  var roomba = this;
   this.getStatus(function(err, theStatus) {
     if (err) {
       return callback(err);
@@ -50,25 +48,23 @@ Roomba.prototype.pollPhase = function(desiredPhase, callback) {
       return callback(null);
     }
     setTimeout(function() {
-      accessory.pollPhase(desiredPhase, callback);
+      roomba.pollPhase(desiredPhase, callback);
     }, 3000);
   });
 }
 
 Roomba.prototype.pauseAndDock = function(callback) {
-  var accessory = this;
+  var roomba = this;
   this.sendRequest("multipleFieldSet", {"remoteCommand": "pause"}, function(err, httpResponse, body) {
     if (err || httpResponse.statusCode != 200) {
-      accessory.log("Could not pause Roomba: %s", err);
       return callback(err);
     }
-    accessory.pollPhase("stop", function(err) {
+    roomba.pollPhase("stop", function(err) {
       if (err) {
         return callback(err);
       }
-      accessory.sendRequest("multipleFieldSet", {"remoteCommand": "dock"}, function(err, httpResponse, body) {
+      roomba.sendRequest("multipleFieldSet", {"remoteCommand": "dock"}, function(err, httpResponse, body) {
         if (err || httpResponse.statusCode != 200) {
-          accessory.log("Could not dock Roomba: %s", err);
           callback(err);
           return;
         }
@@ -81,7 +77,6 @@ Roomba.prototype.pauseAndDock = function(callback) {
 Roomba.prototype.start = function(callback) {
   this.sendRequest("multipleFieldSet", { "remoteCommand": "start" }, function(err, httpResponse, body) {
     if (err || httpResponse.statusCode != 200) {
-      accessory.log("Could not start Roomba: %s", err);
       return callback(err);
     }
     callback();
