@@ -1,0 +1,29 @@
+{
+  "name": "roomba",
+  "version": "0.1.0",
+  "description": "Control a Roomba vacuum cleaner.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonbs/roomba.git"
+  },
+  "keywords": [
+    "roomba",
+    "vacuum",
+    "cleaner",
+    "960",
+    "980"
+  ],
+  "author": "Simon B. Støvring",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simonbs/roomba/issues"
+  },
+  "homepage": "https://github.com/simonbs/roomba#readme",
+  "dependencies": {
+    "request": "^2.79.0"
+  }
+}
