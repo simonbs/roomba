@@ -6,6 +6,8 @@ function Roomba(blid, robotpwd, assetid) {
   this.assetId = assetid;
 }
 
+module.exports = Roomba;
+
 Roomba.prototype.sendRequest = function(method, value, callback) {
   var form = {
     "blid": this.blid,
