@@ -4,7 +4,7 @@ Node module for controlling a Roomba vacuum cleaner. Tested with a Roomba 960 bu
 
 ## Installation
 
-Install using `npm install -g git+ssh://git@github.com/simonbs/roomba.git`
+Install using `npm install --save git+ssh://git@github.com/simonbs/roomba.git`
 
 ## Finding your blid, robotpwd and asset ID
 
